@@ -38,17 +38,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        val gitHubService = retrofit.create(GitHubService::class.java)
-//        gitHubService.getListRepos("yibeomseok").enqueue(object : Callback<List<Repo>> {
-//            override fun onResponse(call: Call<List<Repo>>, response: Response<List<Repo>>) {
-//                Log.d("MainActivity", "List Repo: ${response.body().toString()}")
-//            }
-//
-//            override fun onFailure(call: Call<List<Repo>>, t: Throwable) {
-//
-//            }
-//        })
-
         binding.userRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = userAdapter
