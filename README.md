@@ -18,6 +18,8 @@
 > unauthenticated requests, the rate limit allows you to make up to 10 requests per minute.
 
 - 1분에 10번으로 제한 되므로 토큰을 발급 받아 API 횟수를 늘리는 것이 좋다.
+- 주의할 점은 해당 토큰을 사용하고 그대로 개인 public 원격 레포에 공유할 경우 중요한 정보들이 유출될 수 있다는 것이다. 토큰을 공개하지 않도록 주의할 것.
+  ![header3](.README_images/header3.png)
 
 ### **Headers**
 
