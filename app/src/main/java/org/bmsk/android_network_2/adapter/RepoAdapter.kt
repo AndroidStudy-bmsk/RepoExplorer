@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import org.bmsk.android_network_2.databinding.ItemRepoBinding
 import org.bmsk.android_network_2.model.Repo
 
-class RepoAdapter : ListAdapter<Repo, RepoAdapter.ViewHolder>(diffUtil) {
+class RepoAdapter(
+    private val onClick: (Repo) -> Unit
+) : ListAdapter<Repo, RepoAdapter.ViewHolder>(diffUtil) {
 
     inner class ViewHolder(
         private val viewBinding: ItemRepoBinding
@@ -19,6 +21,10 @@ class RepoAdapter : ListAdapter<Repo, RepoAdapter.ViewHolder>(diffUtil) {
             viewBinding.descriptionTextView.text = repo.description
             viewBinding.starCountTextView.text = "${repo.starCount}"
             viewBinding.forkCountTextView.text = "${repo.forkCount}"
+
+            viewBinding.root.setOnClickListener {
+                onClick(repo)
+            }
         }
     }
 

@@ -13,7 +13,8 @@ interface GitHubService {
     @Headers("Authorization: Bearer $TOKEN")
     @GET("/users/{username}/repos")
     fun getListRepos(
-        @Path("username") username: String
+        @Path("username") username: String,
+        @Query("page") page: Int,
     ): Call<List<Repo>>
 
     @Headers("Authorization: Bearer $TOKEN")
