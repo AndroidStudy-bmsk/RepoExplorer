@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Android_Network_2</string>
+    <string name="search_username">search username</string>
+    <string name="error_awake">에러가 발생했습니다.</string>
 </resources>

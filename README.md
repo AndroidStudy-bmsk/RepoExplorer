@@ -2,6 +2,8 @@
 
 깃허브 레포지토리 조회하기 - Retrofit, GitHub Open API, RecyclerView, ListAdapter, Handler
 
+![sample](../../../../Downloads/sample.gif)
+
 ## GitHub Open API
 
 - BASE_URL: api.github.com

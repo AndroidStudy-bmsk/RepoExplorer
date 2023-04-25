@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/selectable_item_background"
     android:padding="16dp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/repoNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/repoNameTextView"
         tools:text="This is Description" />
@@ -31,7 +33,7 @@
         android:id="@+id/starCountImageView"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/baseline_star_border_24"
+        android:src="@drawable/baseline_star_outline_24"
         app:layout_constraintBottom_toBottomOf="@+id/starCountTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/starCountTextView" />
@@ -42,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/starCountImageView"
         app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
         tools:text="300" />
@@ -60,8 +63,9 @@
         android:id="@+id/forkCountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/forkCountImageView"
         app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
         tools:text="300" />

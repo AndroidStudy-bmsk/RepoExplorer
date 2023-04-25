@@ -23,8 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var userAdapter: UserAdapter
-    private val retrofit = Retrofit.Builder().baseUrl("https://api.github.com/")
-        .addConverterFactory(GsonConverterFactory.create()).build()
     private var searchFor = ""
     private val handler = Handler(Looper.getMainLooper())
 
@@ -32,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         userAdapter = UserAdapter {
             val intent = Intent(this@MainActivity, RepoActivity::class.java)
             intent.putExtra("username", it.username)
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchUser() {
-        val gitHubService = retrofit.create(GitHubService::class.java)
+        val gitHubService = APIClient.retrofit.create(GitHubService::class.java)
 
         gitHubService.getSearchUsers(searchFor).enqueue(object : Callback<UserDTO> {
             override fun onResponse(call: Call<UserDTO>, response: Response<UserDTO>) {
@@ -65,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<UserDTO>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, R.string.error_awake, Toast.LENGTH_SHORT).show()
                 t.printStackTrace()
             }
         })
