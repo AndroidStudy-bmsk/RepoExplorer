@@ -123,3 +123,35 @@ class MainActivity : AppCompatActivity() {
 
 현재 프로젝트에서는 Retrofit, GitHub Open API, RecyclerView, ListAdapter, Handler 등을 이용하여 UI와 네트워크 통신을 구현하도록
 할 것이다.
+
+## 페이징 처리
+
+![perpage](.README_images/perpage.png)
+
+- 문서를 확인해보면, API를 호출할 시에 `per_page` 기본값이 30으로 되어있는 것을 확인할 수 있다.
+- 기본적으로 30개의 페이지, 최대 100개(max 100)의 페이지를 보여줄 수 있다는 것을 확인.
+- 만일 다음 30개 이후의 페이지를 보고자 한다면 쿼리를 수정해야 한다. (`page=<pagenumber>`)
+
+![paging](.README_images/recyclerviewpaging.png)
+- recyclerview의 `addOnScrollListener`를 이용하여 기능을 추가한다. 
+
+### 마지막 아이템을 판별하는 방법
+
+```kotlin
+binding.repoRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val totalCount = linearLayoutManager.itemCount
+                val lastVisiblePosition =
+                    linearLayoutManager.findLastCompletelyVisibleItemPosition()
+
+                if (lastVisiblePosition >= totalCount - 1 && hasMore) {
+                    listRepo(username, ++page)
+                }
+            }
+        })
+```
+
+- totalCount와 lastVisiblePosition 값을 구하여 비교해줄 수 있다.
+- 또한 hasMore 변수를 선언하여 다음 페이지가 없는 경우 더 불러오는 것을 방지한다.
