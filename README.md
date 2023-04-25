@@ -2,7 +2,7 @@
 
 깃허브 레포지토리 조회하기 - Retrofit, GitHub Open API, RecyclerView, ListAdapter, Handler
 
-![sample](../../../../Downloads/sample.gif)
+![sample](.README_images/sample.gif)
 
 ## GitHub Open API
 
