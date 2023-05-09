@@ -3,7 +3,6 @@ package org.bmsk.android_network_2
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +14,6 @@ import org.bmsk.android_network_2.network.GitHubService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class RepoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRepoBinding
@@ -32,11 +29,19 @@ class RepoActivity : AppCompatActivity() {
         val username = intent.getStringExtra("username") ?: return
         binding.userNameTextView.text = username
 
+        setupRepoAdapter()
+        setupRepoRecyclerView(username)
+        listRepo(username, 0)
+    }
+
+    private fun setupRepoAdapter() {
         repoAdapter = RepoAdapter {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.htmlUrl))
             startActivity(intent)
         }
+    }
 
+    private fun setupRepoRecyclerView(username: String) {
         val linearLayoutManager = LinearLayoutManager(this@RepoActivity)
         binding.repoRecyclerView.apply {
             layoutManager = linearLayoutManager
@@ -56,22 +61,18 @@ class RepoActivity : AppCompatActivity() {
                 }
             }
         })
-
-        listRepo(username, 0)
     }
 
     private fun listRepo(username: String, page: Int) {
         val gitHubService = APIClient.retrofit.create(GitHubService::class.java)
         gitHubService.getListRepos(username, page).enqueue(object : Callback<List<Repo>> {
             override fun onResponse(call: Call<List<Repo>>, response: Response<List<Repo>>) {
-                Log.d("MainActivity", "List Repo: ${response.body().toString()}")
-
                 hasMore = response.body()?.count() == DEFAULT_PER_PAGE
                 repoAdapter.submitList(repoAdapter.currentList.plus(response.body().orEmpty()))
             }
 
             override fun onFailure(call: Call<List<Repo>>, t: Throwable) {
-
+                // Handle failure here
             }
         })
     }
