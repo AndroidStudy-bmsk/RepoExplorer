@@ -31,6 +31,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupUserAdapter()
+        setupSearchEditText()
+    }
+
+    private fun setupUserAdapter() {
         userAdapter = UserAdapter {
             val intent = Intent(this@MainActivity, RepoActivity::class.java)
             intent.putExtra("username", it.username)
@@ -41,12 +46,13 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = userAdapter
         }
+    }
 
+    private fun setupSearchEditText() {
         val runnable = Runnable {
             searchUser()
         }
         binding.searchEditText.addTextChangedListener {
-
             searchFor = it.toString()
             handler.removeCallbacks(runnable)
             handler.postDelayed(runnable, 300)
@@ -58,8 +64,6 @@ class MainActivity : AppCompatActivity() {
 
         gitHubService.getSearchUsers(searchFor).enqueue(object : Callback<UserDTO> {
             override fun onResponse(call: Call<UserDTO>, response: Response<UserDTO>) {
-                Log.d("MainActivity", "Search User: ${response.body().toString()}")
-
                 userAdapter.submitList(response.body()?.items)
             }
 
